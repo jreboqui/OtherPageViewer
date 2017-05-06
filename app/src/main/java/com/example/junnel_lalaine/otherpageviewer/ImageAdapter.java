@@ -50,7 +50,7 @@ public class ImageAdapter extends PagerAdapter {
 
 
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-
+        imageView.setImageResource(GalImages[position]);
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
     }
