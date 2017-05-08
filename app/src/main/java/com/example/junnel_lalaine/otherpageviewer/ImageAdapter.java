@@ -17,6 +17,8 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import static android.graphics.BitmapFactory.decodeFile;
+
 public class ImageAdapter extends PagerAdapter {
     Context context;
 
@@ -32,7 +34,7 @@ public class ImageAdapter extends PagerAdapter {
     }
     @Override
     public int getCount() {
-        return GalImages.length;
+        return listArray.size();
     }
 
     @Override
@@ -42,20 +44,34 @@ public class ImageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        Bitmap bitmap;
         ImageView imageView = new ImageView(context);
-       // int padding = context.getResources().getDimensionPixelSize(R.dimen.padding_medium);
+        int padding = context.getResources().getDimensionPixelSize(R.dimen.padding_medium);
      //   imageView.setPadding(padding, padding, padding, padding);
      //   Bitmap bmp = BitmapFactory.decodeFile(listArray.get(position));
        // imageView.setImageBitmap(bmp);
 
+        String imageLoc;
+        File imageFile;
+
+        imageLoc = listArray.get(position);
+        imageFile = new File(imageLoc);
+        bitmap = decodeFile(imageLoc);
+
+        imageView.setImageBitmap(bitmap);
+
+
 
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        imageView.setImageResource(GalImages[position]);
+
+
+        //   imageView.setImageResource(GalImages[position]);
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
     }
 
     public ArrayList<String> getAllShownImagesPath(Activity activity) {
+
         Uri uri;
         Cursor cursor;
         int column_index_data, column_index_folder_name;
@@ -76,8 +92,10 @@ public class ImageAdapter extends PagerAdapter {
             absolutePathOfImage = cursor.getString(column_index_data);
 
             listOfAllImages.add(absolutePathOfImage);
-            System.out.println(absolutePathOfImage);
-            listArray.add(absolutePathOfImage);
+         //   System.out.println(absolutePathOfImage);
+          //  listArray.add(absolutePathOfImage);
+
+            listArray = listOfAllImages;
         }
         return listOfAllImages;
     }

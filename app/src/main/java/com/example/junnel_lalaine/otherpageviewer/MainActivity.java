@@ -36,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ImageAdapter adapter = new ImageAdapter(this);
 
-       ArrayList<String> arrayList = adapter.getAllShownImagesPath(this);
+        ArrayList<String> arrayList = adapter.getAllShownImagesPath(this);
 
-     //   adapter.loadFromGallery(arrayList);
+      //  adapter.loadFromGallery(arrayList);
         viewPager.setAdapter(adapter);
 
 
