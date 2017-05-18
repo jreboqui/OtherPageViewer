@@ -1,6 +1,7 @@
 package com.example.junnel_lalaine.otherpageviewer;
 
 import android.app.Activity;
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -47,7 +49,7 @@ public class ImageAdapter extends PagerAdapter {
         Bitmap bitmap;
         ImageView imageView = new ImageView(context);
         int padding = context.getResources().getDimensionPixelSize(R.dimen.padding_medium);
-     //   imageView.setPadding(padding, padding, padding, padding);
+        imageView.setPadding(padding, padding, padding, padding);
      //   Bitmap bmp = BitmapFactory.decodeFile(listArray.get(position));
        // imageView.setImageBitmap(bmp);
 
@@ -60,7 +62,15 @@ public class ImageAdapter extends PagerAdapter {
 
         imageView.setImageBitmap(bitmap);
 
+        //This part changes the wallpaper base on the last photo viewed on the app
+        WallpaperManager myWallpaperManager
+                = WallpaperManager.getInstance((this.context));
 
+        try {
+            myWallpaperManager.setBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
